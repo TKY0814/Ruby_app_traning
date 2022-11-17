@@ -1,5 +1,16 @@
 <h2>タイトル</h2>
 <p><%= @list.title %></p>
-
+<%= csrf_meta_tags %>
 <h2>本文</h2>
 <p><%= @list.body %></p>
+
+<h2>画像</h2>
+<% if @list.image.attached? %>
+  <%= image_tag @list.image, size: "300x300" %>
+<% else %>
+  <%= image_tag 'no_image', size: "300x300" %>
+<% end %>
+
+<%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+<%= link_to "編集", edit_list_path(@list.id) %>
+<%= button_to "削除", list_path(@list.id), method: :delete, "data-confirm" => "本当に削除しますか？" %>
